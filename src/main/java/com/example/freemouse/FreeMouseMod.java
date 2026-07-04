@@ -19,7 +19,7 @@ public class FreeMouseMod implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        toggleKey = KeyMappingHelper.registerKeyBinding(new KeyMapping(
+        toggleKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
                 "key.freemouse.toggle",
                 InputConstants.Type.KEYSYM,
                 InputConstants.UNKNOWN.getValue(),
