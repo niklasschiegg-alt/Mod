@@ -16,19 +16,13 @@ jobs:
           distribution: 'temurin'
           java-version: '25'
 
-      - name: Grant execute permission for gradlew
-        run: |
-          if [ -f "./gradlew" ]; then chmod +x ./gradlew; fi
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 9.4.0
 
       - name: Build with Gradle
-        run: |
-          if [ -f "./gradlew" ]; then
-            ./gradlew build --no-daemon
-          else
-            curl -s https://services.gradle.org/distributions/gradle-9.4.0-bin.zip -o gradle.zip
-            unzip -q gradle.zip
-            ./gradle-9.4.0/bin/gradle build --no-daemon
-          fi
+        run: gradle build --no-daemon
 
       - name: Upload built jar
         uses: actions/upload-artifact@v4
