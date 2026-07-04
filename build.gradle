@@ -11,32 +11,31 @@ base {
 }
 
 repositories {
-	// Fabric-Repos werden von Loom automatisch hinzugefügt
+	// Loom fügt die nötigen Maven-Repos automatisch hinzu
 }
 
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	// Ab 26.1 nutzt Minecraft direkt Mojangs offizielle (unobfuskierte) Namen,
-	// daher wird keine separate Mappings-Abhängigkeit (Yarn) mehr benötigt.
-	loader "net.fabricmc:fabric-loader:${project.loader_version}"
-	api "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-}
-
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(25)
-	}
-	withSourcesJar()
-}
-
-tasks.withType(JavaCompile).configureEach {
-	it.options.encoding = "UTF-8"
-	it.options.release = 25
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	// Fabric API
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 }
 
 processResources {
-	inputs.property "version", project.version
+	def version = project.version
+	inputs.property "version", version
+
 	filesMatching("fabric.mod.json") {
-		expand "version": project.version
+		expand "version": version
 	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 25
+}
+
+java {
+	withSourcesJar()
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
 }
