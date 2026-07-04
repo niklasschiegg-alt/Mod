@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "freemouse",
+  "version": "${version}",
+  "name": "Free Mouse",
+  "description": "Gibt die Maus per Tastendruck frei (ohne Pause/Blickänderung) und verhindert, dass das Spiel beim Minimieren/Fokusverlust automatisch pausiert.",
+  "authors": ["Du"],
+  "contact": {},
+  "license": "CC0-1.0",
+  "icon": "",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.example.freemouse.FreeMouseMod",
+      "com.example.freemouse.NoAutoPauseMod"
+    ]
+  },
+  "mixins": [
+    "freemouse.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.18.4",
+    "minecraft": "26.1.2",
+    "fabric-api": "*",
+    "java": ">=25"
+  }
+}
